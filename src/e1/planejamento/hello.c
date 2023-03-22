@@ -1,5 +1,7 @@
-// arm-elf-gcc -Wall -g -o hello hello.c
-void main()
+#include <stdio.h>
+
+int main()
 {
-    printf("hello");
+    printf("hello\n");
+    return 0;
 }
