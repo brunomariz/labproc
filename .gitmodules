@@ -1,0 +1,3 @@
+[submodule "gcc-arm"]
+	path = gcc-arm
+	url = https://github.com/EpicEric/gcc-arm.git
