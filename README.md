@@ -1,5 +1,11 @@
 # labproc
 
+## Utilizando arm-utils
+
+O pacote arm-utils foi desenvolvido pelo professor do lab para ajudar nas experiências. Para instalá-lo, siga as instruções em https://edisciplinas.usp.br/mod/page/view.php?id=4584513
+
+## Utilizando Docker (forma antiga)
+
 Utilizar pasta src para realização das experiências. **Não modificar arquivos dentro da pasta gcc-arm.**
 
 ## Setup
