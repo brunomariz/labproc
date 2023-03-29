@@ -26,6 +26,7 @@ Tenho preferência por utilizar meu proprio script para o docker run, pois inclu
 
 ```
 ~/projects/labproc$ sh ./run_container.sh
+student:~/src$
 ```
 
 Para sair do container, basta usar o comando `Ctrl+D`.
