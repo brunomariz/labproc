@@ -4,14 +4,14 @@ Utilizar pasta src para realização das experiências. **Não modificar arquivo
 
 ## Setup
 
-##### Busca arquivos do submodulo
+##### Buscar arquivos do submodulo
 
 ```
 ~/projects/labproc$ git submodule init
 ~/projects/labproc$ git submodule update
 ```
 
-##### Cria imagem utilizando script do submodulo
+##### Criar imagem utilizando script do submodulo
 
 ```
 ~/projects/labproc$ cd gcc-arm/
@@ -20,7 +20,7 @@ Utilizar pasta src para realização das experiências. **Não modificar arquivo
 ~/projects/labproc$
 ```
 
-##### Roda container
+##### Rodar container
 
 Tenho preferência por utilizar meu proprio script para o docker run, pois inclui volumes compartilhados entre a pasta `src/` do repositório, não a do submodulo.
 
