@@ -75,4 +75,4 @@ $3 = 0x10
 Resultado do CPSR após ADDS:
 
 <p align = "center"><code>NZCV = 0000</code></p>
-Isso pode ser explicado pois a soma 15+15 = 30 ($r2 = 0x14) resultou em um número positivo, não nulo, sem carry e sem overflow.
+Isso pode ser explicado pois a soma 15+20 = 35 ($r0 = 0x23) resultou em um número positivo, não nulo, sem carry e sem overflow.
