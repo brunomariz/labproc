@@ -1,3 +1,4 @@
+@ ex 2.4
     .text
     .globl main
 
