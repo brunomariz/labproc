@@ -260,7 +260,9 @@ Nesse caso, o registrador r4 será igual a 32 \* r0 = 480.
 #### The EOR instruction is a fast way to swap the contents of two registers without using an intermediate storage location such as a memory location or another register. Suppose two values A and B are to be exchanged. The following algorithm could be used:
 
 A = A ⊕ B
+
 B = A ⊕ B
+
 A = A ⊕ B
 
 #### Write the ARM code to implement the above algorithm, and test it with the values of A = 0xF631024C and B = 0x17539ABD. Show your instructor the contents before and after the program has run.
