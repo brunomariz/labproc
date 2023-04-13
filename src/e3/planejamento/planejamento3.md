@@ -34,7 +34,15 @@ MOV 	r3, r4, LSL #7
 ADD 	r6, r3, r4, LSL #2
 ```
 
-Ao fim do programa, o registrador r6 irá 4 \* r4, nesse caso, 528.
+Ao fim do programa, o registrador r6 terá o valor de
+
+r4 \* 2^7 + r4 \* 2^2 =
+
+r4 \* 128 + r4 \* 4 =
+
+132 \* r4,
+
+nesse caso, 528.
 
 #### b. 255
 
@@ -76,16 +84,16 @@ Considerando o primeiro valor de 64 bits estando nos tegistradores r1 e r2, e o 
 
 ```assembly
 @ EQ
-CMP 	r6, r1, r3
-CMPEQ	r6, r3, r5
+CMP 	r1, r3
+CMPEQ	r2, r4
 
 @ GT
-CMP 	r6, r1, r3
-CMPGT	r6, r3, r5
+CMP 	r1, r3
+CMPGT	r2, r4
 
 @ LT
-CMP 	r6, r1, r3
-CMPLT	r6, r3, r5
+CMP 	r1, r3
+CMPLT	r2, r4
 ```
 
 Dessa forma, se compara primeiro os 32 bits mais significativos de cada valor, e caso as flags correspondentes a cada comparação estejam ativas, se compara os 32 bits menos significativos.
@@ -93,3 +101,58 @@ Dessa forma, se compara primeiro os 32 bits mais significativos de cada valor, e
 ## 3.1.3 C - prepare a solução de 3.10.7 (individualmente no seu computador)
 
 ###### Rascunhe a solução do exercício de divisão 3.10.7; ou seja, como é o algoritmo da divisão. Coloque o algoritmo em código ARM (não é necessário testar). A operação de divisão deve ser feita com shift como faz o Professor do Ensino Fundamental e não o algoritmo ineficiente e simples que subtrai um número do outro.
+
+dividendo: r1
+
+divisor: r2
+
+quociente: r3
+
+resto: r5
+
+Algoritmo:
+
+1. alinhar bits mais significativos do divisor (r2) aos bits mais significativos do dividendo (r1)
+2. subtrair divisor (r1) dos bits correspondentes do dividendo
+   a. se a subtração resultou em um número negativo, adicionar 0 no bit menos significativo do quociente (r3)
+   b. caso contrário, adicionar 1 ao bit menos significativo do quociente e guardar resultado da subtração no registrador de resto (r5)
+3. adicionar próximo bit do dividendo ao bit menos significativo do resultado da subtração (registrador de resto r5)
+4. se o resto r5 for maior que o divisor, voltar para passo 2, caso contrario encerrar
+
+```assembly
+@ r7: tmp
+@ r1: dividendo
+@ r2: divisor
+@ r3: quociente
+@ r5: resto
+
+alinhar_bits:
+    @ r5 contendo msb alinhados com r2
+
+loop:
+    SUBS r7, r5, r2
+    BLT resto_lt_divisor
+
+resto_ge_divisor:
+    @ adiciona 1 ao quociente
+    LSL r3, #1
+    ADD r3, #1
+    @ salva resultado da subtracao no registrador do resto
+    MOV r5, r7
+    B adicionar_proximo_bit
+
+resto_lt_divisor:
+    LSL r3, #1 @ adiciona 0 ao quociente
+    B adicionar_proximo_bit
+
+adicionar_proximo_bit:
+    LSL r5, #1 @ "abre espaco" para novo bit
+    ADD r5, <proximo_bit_do_dividendo>
+
+condicao_do_loop:
+    CMP r5, r2
+    BGE loop
+
+fim:
+    B pc
+```
