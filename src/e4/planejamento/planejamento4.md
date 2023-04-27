@@ -35,8 +35,11 @@ LDRSH r12, [r6] &rarr; pos-indexado
 ### B.3) Calcule o endereço efetivo das seguintes instruções se o registrador r3 = 0x4000 e o registrador r4 = 0x20
 
 STRB r9, [r3,r4] &rarr; endereço: 0x4020
+
 LDRB r8,[r3,r4,LSL #3] &rarr; endereço: 0x4100
+
 LDR r7, [r3], r4 &rarr; endereço: 0x4000
+
 STRB r6, [r3], r4, ASR #2 &rarr; endereço: 0x4000
 
 ### B.4) O que há de errado na seguinte instrução? Veja "incorrect example" em: http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0068b/Chdbifed.html
