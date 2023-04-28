@@ -1,0 +1,31 @@
+@ 4.5.4
+.text
+.global main
+main:
+    @ r1: a
+    @ r2: s
+    @ r3: i
+    @ r4: zero
+
+    LDR r1, =a
+    MOV r2, #0x10
+    MOV r4, #0
+
+init_indices:
+    @ i = 0
+    MOV r3, #0
+check_i_lt_s:
+    CMP r3, r2
+    BGE fim
+    STRB r4, [r1, r3]
+    @ i++
+    ADD r3, r3, #1
+    B check_i_lt_s
+
+fim:
+    MOV	r0, #0x18
+	LDR	r1, =0x20026
+	SWI	0x0
+
+.data
+a:  .byte 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa

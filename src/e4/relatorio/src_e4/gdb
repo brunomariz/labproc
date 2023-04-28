@@ -1,0 +1,5 @@
+b main
+x/11wx &a
+x/11wx &b
+watch (int)a
+watch (int)a+4

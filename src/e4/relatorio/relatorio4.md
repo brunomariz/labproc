@@ -167,3 +167,59 @@ for ( i = 0; i <= 10; i++) {a[i] = b[i] + c;}
 ```
 
 ###### Assume that r3 contains i, r4 contains c, a starting address of the array a in r1, and a starting address of the array b in r2.
+
+Estado dos registradores e arrays antes da execução:
+
+![](img/4-5-3-antes.png)
+
+Estado após a primeira iteração:
+
+![](img/4-5-3-primeira-it.png)
+
+Estado ao final do loop:
+
+![](img/4-5-3-fim.png)
+
+---
+
+### 4.5.4 Arrays and pointers
+
+###### Consider the following two C procedures, which initialize an array to zero using a) indices, and b) pointers:
+
+###### a)
+
+```
+init_Indices (int a[], int s) {
+    int i;
+    for ( i = 0; i < s; i ++)
+        a[i] = 0; }
+```
+
+###### b)
+
+```
+init_Pointers (int *array, int s) {
+    int *p;
+    for (p = &array[0]; p < &array[s]; p++)
+        *p = 0; }
+```
+
+###### Convert these two procedures to ARM assembly. Put the starting address of the array in r1, s in r2, and i and p in r3. Assume that s > 0 and that you have an array of bytes.
+
+Código utilizado no exercício:
+
+```assembly
+
+```
+
+Estado dos registradores e memória antes da execução do loop:
+
+![](img/4-5-4-antes.png)
+
+Estado dos registradores e memória após a execução do loop:
+
+![](img/4-5-4-depois.png)
+
+Note que o array a foi inicializado com 20 bytes 0xaa, porém o código utiliza s=16 para facilitar a visualização da parada do loop.
+
+---
