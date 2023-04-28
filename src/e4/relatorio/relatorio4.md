@@ -212,14 +212,27 @@ Código utilizado no exercício:
 
 ```
 
+a)
+
 Estado dos registradores e memória antes da execução do loop:
 
-![](img/4-5-4-antes.png)
+![](img/4-5-4-a-antes.png)
 
 Estado dos registradores e memória após a execução do loop:
 
-![](img/4-5-4-depois.png)
+![](img/4-5-4-a-depois.png)
 
-Note que o array a foi inicializado com 20 bytes 0xaa, porém o código utiliza s=16 para facilitar a visualização da parada do loop.
+Note que o array a foi inicializado com 20 bytes 0xaa, porém o código utiliza s=16 para facilitar a visualização da parada do loop, portanto apenas os 16 primeiros bytes foram alterados para 0 pela subrotina.
+
+b)
+Estado dos registradores e memória antes da execução do loop:
+
+![](img/4-5-4-b-antes.png)
+
+Estado dos registradores e memória após a execução do loop:
+
+![](img/4-5-4-b-depois.png)
+
+Note que o array "array" foi inicializado com 20 bytes 0x01, 0x02, ..., 0x14, porém o código utiliza s=16 para facilitar a visualização da parada do loop, portanto apenas os 16 primeiros bytes foram alterados para 0 pela subrotina.
 
 ---
