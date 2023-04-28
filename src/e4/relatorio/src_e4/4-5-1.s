@@ -9,15 +9,15 @@ main:
     @ r4: tmp
     @ x = array[5] + y
     MOV r3, #5
-pre_indexado:
+pos_indexado:
     MOV r0, #0
     ADR r2, array
     MOV r1, #0xc
     @ Carregando com o modo pos-indexado
     ADD r4, r2, r3, LSL #2
-    LDR r0, [r4]
+    LDR r0, [r4], #0
     ADD r0, r0, r1
-pos_indexado:
+pre_indexado:
     MOV r0, #0
     ADR r2, array
     MOV r1, #0xc
