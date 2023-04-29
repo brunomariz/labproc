@@ -168,6 +168,50 @@ for ( i = 0; i <= 10; i++) {a[i] = b[i] + c;}
 
 ###### Assume that r3 contains i, r4 contains c, a starting address of the array a in r1, and a starting address of the array b in r2.
 
+Código utilizado no exercício:
+
+```assembly
+@ 4.5.3
+.text
+.global main
+main:
+    @ r1: a
+    @ r2: b
+    @ r3: i
+    @ r4: c
+    @ r5: tmp
+
+    LDR r1, =a
+    LDR r2, =b
+    MOV r3, #0
+    MOV r4, #0x4000
+
+pronto:
+check_i_le_10:
+    CMP r3, #10
+    BGT fim
+    @ r5 = b[i]
+    LDR r5, [r2, r3, LSL #2]
+    @ r5 = b[i] + c
+    ADD r5, r5, r4
+    @ a[i] = r5
+    STR r5, [r1, r3, LSL #2]
+    @ i++
+    ADD r3, r3, #1
+    B check_i_le_10
+
+fim:
+    MOV	r0, #0x18
+	LDR	r1, =0x20026
+	SWI	0x0
+
+.data
+a:  .space 44
+b:
+    .word 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xa
+
+```
+
 Estado dos registradores e arrays antes da execução:
 
 ![](img/4-5-3-antes.png)
@@ -209,6 +253,56 @@ init_Pointers (int *array, int s) {
 Código utilizado no exercício:
 
 ```assembly
+@ 4.5.4
+.text
+.global main
+main:
+    @ r1: a
+    @ r2: s
+    @ r3: i/p
+    @ r4: zero
+    @ r5: &array[s]
+
+    LDR r1, =a
+    MOV r2, #0x10
+    MOV r4, #0
+
+    BL init_indices
+    BL init_pointers
+    B fim
+
+init_indices:
+    @ i = 0
+    MOV r3, #0
+check_i_lt_s:
+    CMP r3, r2
+    @ retorna da funcao
+    MOVGE pc, lr
+    STRB r4, [r1, r3]
+    @ i++
+    ADD r3, r3, #1
+    B check_i_lt_s
+
+init_pointers:
+    @ p = &array[0]
+    LDR r3, =array
+    @ r5 = &array[s]
+    ADD r5, r3, r2
+check_p_lt_array_s:
+    CMP r3, r5
+    MOVGE pc, lr
+    STRB r4, [r3], #1
+    B check_p_lt_array_s
+
+fim:
+    MOV	r0, #0x18
+	LDR	r1, =0x20026
+	SWI	0x0
+
+.data
+a:  .byte 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa
+
+array: .byte 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10, 0x11, 0x12, 0x13, 0x14
 
 ```
 
@@ -260,6 +354,64 @@ f(n) = f(n – 1) + f(n – 2).
 Código utilizado no exercício:
 
 ```assembly
+@ 4-5-5 Fibonacci
+.text
+.global main
+main:
+    @ r0: n
+    @ r1: a
+    @ r2: a[i]
+    @ r3: a[i-1], tmp
+    @ r4: a[i-2], tmp
+    @ r5: indice
+    @ r6: tmp
+    MOV r0, #12
+pronto:
+    @ r1 = a
+    LDR r1, =a
+    @ i = 0
+    MOV r5, #0
+    @ Inicializar a[0] e a[1] com 0 e 1
+    MOV r6, #0
+    STR r6, [r1, r5, LSL #2] @ a[0] = 0
+    ADD r5, r5, #1 @ i++
+    MOV r6, #1
+    STR r6, [r1, r5, LSL #2] @ a[1] = 1
+    ADD r5, r5, #1 @ i++
+check_i_gt_n:
+    CMP r5, r0
+    BGT fim
+    @ r3 = a[i-1]
+    SUB r3, r5, #1
+    LDR r3, [r1, r3, LSL #2]
+    @ r4 = a[i-2]
+    SUB r4, r5, #2
+    LDR r4, [r1, r4, LSL #2]
+    @ r2 = a[i-1] + a[i-2]
+    ADD r2, r3, r4
+    @ a[i] = r2
+    STR r2, [r1, r5, LSL #2]
+    @ i++
+    ADD r5, r5, #1
+    B check_i_gt_n
+
+fim:
+    @ r6 = a[n]
+    LDR r6, [r1, r0, LSL #2]
+    @ r3 = &ultimo
+    LDR r3, =ultimo
+    @ ultimo = a[n]
+    STR r6, [r3]
+
+    MOV	r0, #0x18
+	LDR	r1, =0x20026
+	SWI	0x0
+
+.data
+ultimo: .word 0
+@ Array com sequencia de fibonacci
+a:
+    .space 400
 
 ```
 
@@ -273,9 +425,58 @@ Ao fim do programa, é possível observar a sequência de fibonacci nas posiçõ
 
 ---
 
+### 4.5.6 The nth Fibonacci number
+
+###### See The Fibonacci sequence and write ARM assembly to compute f(n). Start with r1 = n. At the end of the program, r0 = f(n).
+
 Código utilizado no exercício:
 
 ```assembly
+@ 4-5-6 Nth Fibonacci
+.text
+.global main
+main:
+    @ r0: n, f(n)
+    @ r1: a
+    @ r2: a[i]
+    @ r3: a[i-1], tmp
+    @ r4: a[i-2], tmp
+    @ r5: indice
+    @ r6: tmp
+    MOV r0, #12
+pronto:
+    @ i = 2
+    MOV r5, #2
+    @ Inicializar a[0] e a[1] com 0 e 1
+    MOV r3, #1
+    MOV r4, #0
+check_i_gt_n:
+    CMP r5, r0
+    BGT fim
+    @ r2 = a[i-1] + a[i-2]
+    ADD r2, r3, r4
+    @ Atualizar valores
+    @ r4 = a[i-1]
+    MOV r4, r3
+    @ r3 = a[i]
+    MOV r3, r2
+    @ i++
+    ADD r5, r5, #1
+    B check_i_gt_n
+
+fim:
+    @ r0 = f(n)
+    MOV r0, r2
+
+    MOV	r0, #0x18
+	LDR	r1, =0x20026
+	SWI	0x0
+
+.data
+ultimo: .word 0
+@ Array com sequencia de fibonacci
+a:
+    .space 400
 
 ```
 
