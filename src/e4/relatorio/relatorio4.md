@@ -236,3 +236,37 @@ Estado dos registradores e memória após a execução do loop:
 Note que o array "array" foi inicializado com 20 bytes 0x01, 0x02, ..., 0x14, porém o código utiliza s=16 para facilitar a visualização da parada do loop, portanto apenas os 16 primeiros bytes foram alterados para 0 pela subrotina.
 
 ---
+
+### 4.5.5 The Fibonacci sequence
+
+###### The Fibonacci sequence is an infinite sequence of numbers such that:
+
+```
+f(0) = 0
+f(1) = 1
+f(2) = 1
+f(3) = 2
+f(4) = 3
+f(5) = 5
+f(6) = 8
+.
+.
+.
+f(n) = f(n – 1) + f(n – 2).
+```
+
+###### Write an ARM assembly program that computes the first 12 numbers of the sequence and stores the sequence in memory locations 0x4000 to 0x400B. Assume everything can be in bytes, because f(12) is the first number of the sequence that falls out of the byte range. You must use a loop, and only f(0) and f(1) can be stored outside the loop.
+
+Código utilizado no exercício:
+
+```assembly
+
+```
+
+É possível observar o estado dos registradores e do array no início do programa no print abaixo:
+
+![](img/4-5-5-antes.png)
+
+Ao fim do programa, é possível observar a sequência de fibonacci nas posições de memória relativas ao array <span style='font-family: Courier New, Courier'>a</span> utilizando o comando <span style='font-family: Courier New, Courier'>x/13wd &a</span>, e o valor de f(n) com n=12 na posição de memória referente à label <span style='font-family: Courier New, Courier'>ultimo</span>, com o comando <span style='font-family: Courier New, Courier'>x/d &ultimo</span>:
+
+![](2023-04-28-21-08-43.png)
