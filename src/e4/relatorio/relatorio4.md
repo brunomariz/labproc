@@ -269,4 +269,20 @@ Código utilizado no exercício:
 
 Ao fim do programa, é possível observar a sequência de fibonacci nas posições de memória relativas ao array <span style='font-family: Courier New, Courier'>a</span> utilizando o comando <span style='font-family: Courier New, Courier'>x/13wd &a</span>, e o valor de f(n) com n=12 na posição de memória referente à label <span style='font-family: Courier New, Courier'>ultimo</span>, com o comando <span style='font-family: Courier New, Courier'>x/d &ultimo</span>:
 
-![](2023-04-28-21-08-43.png)
+![](img/4-5-5-depois.png)
+
+---
+
+Código utilizado no exercício:
+
+```assembly
+
+```
+
+Estado dos registradores antes da execução do código:
+
+![](img/4-5-6-antes.png)
+
+Após a execução do loop, é possível observar o valor correspondente a f(12) = 144 em r0:
+
+![](img/4-5-6-depois.png)
