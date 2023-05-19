@@ -1,0 +1,11 @@
+b main
+c
+# breakpoint no SWI
+b fim 
+c
+# para quadrado 4x4
+x/16d &quadrado
+# 1- magico 0 - nao eh magico 
+x/d &ehmagico 
+# printando em bytes
+x/16bd &quadrado
