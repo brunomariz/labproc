@@ -1,6 +1,6 @@
 # PCS3432 - Laboratório de Processadores
 
-##### Relatório - E6
+##### Relatório - E8
 
 | Bancada B8      |          |
 | --------------- | -------- |
