@@ -1,3 +1,14 @@
+# PCS3432 - Laboratório de Processadores
+
+##### Relatório - E6
+
+| Bancada B8      |          |
+| --------------- | -------- |
+| Bruno Mariz     | 11261826 |
+| Roberta Andrade | 11260832 |
+
+---
+
 ### 8.2.1 Compilar código assembly e código C e linkar ambos.
 
 ###### Foi adaptado o seguinte código (add.s e main.c):
@@ -108,7 +119,7 @@
 
 ###### Como o número é passado como parâmetro? Como o fp é usado para isso?
 
-O número é passado como parâmetro pelo registrador r0. Para que isso aconteça, a função do "fp" é de adicionar esse parâmetro à pilha de modo que possa ser utilizado posteriormente. No caso do código elaborado, isso pode ser observado pelo comando [INSERIR COMANDO QUE A GENTE USOU].
+O número é passado como parâmetro pelo registrador r0. Para que isso aconteça, a função do "fp" é de adicionar esse parâmetro à pilha de modo que possa ser utilizado posteriormente.
 
 ###### Em uma função, os registradores poderiam ser salvos e recuperados da forma que segue:
 
