@@ -217,9 +217,16 @@ Em casos de a rotina ter poucos parâmetros, esse processo é realizado inteiram
 
 ###### Como esse parâmetro é empilhado (isso é necessário em caso de chamadas recursivas)? Como é aberto um espaço na pilha para o parâmetro de imprime? Onde isso é feito no código?
 
+O quinto parâmetro, que é passado por pilha, é "stackado" por meio da instrução STR usando "sp" como base e deslocamento #0, de modo que a passagem de parâmetros por pilha e o armazenamento de contexto na pilha é importante para que uma função recursiva possa retornar para a função que a chamou. Já, para os parâmetros a serem passados por registrador, eles são empurrados na pilha
+também pelo comando STR, usando como base o "fp", mas com deslocamentos múltiplos de 4.
+
 ###### Por que se faz fp-16 para acessar o parâmetro?
 
+Utiliza-se dessa métrica para acessar o parâmetro, uma vez que a pilha cresce no sentido do menor número de endereço, de modo que o "fp" aponta para a base do frame. Além disso, o acesso ao parâmetro é indireto usando "fp" como base. Dessa forma, deve-se subtrair de "fp" para acessar um parâmetro na pilha, como pode ser visto no uso de "fp-16".
+
 ###### Como esse parâmetro é desempilhado? Observe que o ip é repassado para sp e com isso, a alteração na pilha para abrir o espaço para o parâmetro de "imprime" é automaticamente refeito.
+
+O parâmetro é desempilhado através da chamada da instrução LDMFD. Desse modo, o compilador faz a subtração do endereço atual para o qual o sp aponta e, em seguida, realiza o load dos registradores, de modo a abrir espaço para o parâmetro de "imprime" de forma automática com a instrução.
 
 ###### Para o seu relatório, gere imagens semelhantes às apresentadas pelo grupo do Lucas, Ricardo, Gabriel, Jonatas.
 
