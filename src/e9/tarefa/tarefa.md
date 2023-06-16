@@ -49,8 +49,8 @@ Inicialmente foi executado o programa acima, e foram feitos os prints em cada et
 
 Parando o programa antes da instrução em vesaida, foram feitos os prints a seguir:
 
-![](2023-06-16-11-55-40.png)
+![](t-6.png)
 
-![](2023-06-16-11-56-05.png)
+![](t-7.png)
 
 Isso é o esperado, pois a próxima instrução a ser executada ao sair de Undefined_Handler é o branch para c_entry.
