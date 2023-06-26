@@ -1,1 +1,1 @@
-docker run --rm -ti -v $PWD/src:/home/student/src epiceric/gcc-arm
+docker run --rm -ti -v $PWD/src:/root/src brunomariz/labproc
