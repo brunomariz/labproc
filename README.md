@@ -1,10 +1,14 @@
 # labproc
 
-## Utilizando arm-utils com Docker
+## Instalação
+
+Após clonar o repositório, existem algumas opções para simular e depurar os códigos em assembly da disciplina, descritas a seguir
+
+## Opção 1: Utilizando arm-utils com Docker
 
 Para utilizar as ferramentas imediatamente basta rodar o script `run-container.sh` da seguinte forma:
 
-```shell
+```
 ~/projects/labproc$ sh ./run_container.sh
 ```
 
@@ -19,11 +23,31 @@ Status: Downloaded newer image for brunomariz/labproc:latest
 root@bdab2dc0469e:~/src#
 ```
 
-## Utilizando arm-utils
+### Testando o container
 
-O pacote arm-utils foi desenvolvido pelo professor do lab para ajudar nas experiências. Para instalá-lo, siga as instruções em https://edisciplinas.usp.br/mod/page/view.php?id=4584513
+Você pode testar a ferramenta compilando o código do item 2.2 com o seguinte comando:
 
-## Utilizando Docker (forma antiga)
+```
+~/src# arm build item-2-2.s
+~/src# arm debug a.out
+```
+
+Ao rodar esses comandos, deveria ser exibida a tela de depuração do GDB.
+
+Após rodar os comandos <span style='font-family: Courier New, Courier'>b main</span> e <span style='font-family: Courier New, Courier'>c</span> (continue), deveria ser observada a tela a seguir:
+
+![](img/arm-utils-print.png)
+
+## Opção 2: Utilizando arm-utils diretamente
+
+O pacote arm-utils foi desenvolvido pelo professor do lab para ajudar nas experiências. Para instalá-lo, basta rodar os comandos:
+
+```
+~/projects/labproc$ cd docker
+~/projects/labproc/docker$ sudo apt install ./arm-utils_1.0.2_all.deb
+```
+
+## Opção 3: Utilizando Docker (forma antiga)
 
 Utilizar pasta src para realização das experiências. **Não modificar arquivos dentro da pasta gcc-arm.**
 
@@ -31,14 +55,14 @@ Utilizar pasta src para realização das experiências. **Não modificar arquivo
 
 ##### Buscar arquivos do submodulo
 
-```shell
+```
 ~/projects/labproc$ git submodule init
 ~/projects/labproc$ git submodule update
 ```
 
 ##### Criar imagem utilizando script do submodulo
 
-```shell
+```
 ~/projects/labproc$ cd gcc-arm/
 ~/projects/labproc/gcc-arm$ sh ./build_docker.sh
 ~/projects/labproc/gcc-arm$ cd ..
@@ -49,7 +73,7 @@ Utilizar pasta src para realização das experiências. **Não modificar arquivo
 
 Tenho preferência por utilizar meu proprio comando para o docker run, pois inclui volumes compartilhados entre a pasta `src/` do repositório, não a do submodulo.
 
-```shell
+```
 ~/projects/labproc$ docker run --rm -ti -v $PWD/src:/home/student/src epiceric/gcc-arm
 student:~/src$
 ```
