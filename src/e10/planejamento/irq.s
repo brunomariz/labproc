@@ -57,14 +57,29 @@ do_software_interrupt: @Rotina de Interrupçãode software
     mov pc, r14 @volta p/ o endereço armazenado em r14
 
 do_irq_interrupt: @Rotina de interrupções IRQ
+    @ Corrige o lr
     SUB lr, lr, #4
-    STMFD sp!, {r0 - r12, lr} @Empilha os registradores
+
+    @ Guarda o r0 em linhaA
+    STR r0, linhaA
+    @ Utiliza o r0 para o endereco de linhaA
+    LDR r0, =linhaA
+    @ Pula 4 bytes correspondentes ao r0 salvo em linhaA
+    ADD r0, r0, #4
+    @ Empilha o resto dos registradores
+    STMEA r0!, {r1 - r12, lr}
+
+    @ Salva contexto do do_irq_interrupt antes de realizar as operacoes 
+    STMFD sp!, {r0}
+
     LDR r0, INTPND @Carrega o registrador de status de interrupção
     LDR r0, [r0]
     TST r0, #0x0010 @verifica se é uma interupção de timer
     BLNE handler_timer @vai para o rotina de tratamento da interupção de timer
     vesaida:
-    LDMFD sp!, {r0 - r12, pc}^ @retorna
+    @ Recupera o contexto do do_irq_interrupt contendo o endereco dos registradores salvos em linhaA
+    LDMFD sp!, {r0}
+    LDMEA r0, {r0 - r12, pc}^ @retorna
 
 timer_init:
     @ Enable timer0 interrupt
@@ -95,3 +110,5 @@ main:
 loop:
     bl print_space
     b loop
+
+linhaA: .space 68
