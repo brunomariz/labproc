@@ -15,12 +15,12 @@ void handler_timer() {
 
 void taskA() {
   while(1) {
-    print_uart0("Jong ");
+    print_uart0("Bruno ");
   }
 }
 
 void taskB() {
   while(1) {
-    print_uart0("11261083 ");
+    print_uart0("11261826 ");
   }
 }
