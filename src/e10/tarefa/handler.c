@@ -15,7 +15,7 @@ void handler_timer() {
 
 void taskA() {
   while(1) {
-print_uart0("1 ");
+    print_uart0("1 ");
   }
 }
 
